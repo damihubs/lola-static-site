@@ -1,0 +1,23 @@
+name: Deploy Static Website to Azure
+
+on:
+  push:  # Trigger this workflow on every push to the repository
+
+jobs:
+  deploy-static-site:
+    runs-on: ubuntu-latest  # Specifies the OS for the job
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Step to pull the latest code from the repository
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Use your stored Azure credentials from GitHub Secrets
+
+      - name: Deploy Static Website to Azure
+        uses: azure/webapps-deploy@v2  # Step to deploy to Azure Web App
+        with:
+          app-name: practice-static-site  # Use the name of your new App Service
+          package: '.'  # Specify the root of the project as the package to deploy
