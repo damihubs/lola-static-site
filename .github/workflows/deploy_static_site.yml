@@ -1,19 +1,25 @@
-name: Deploy Static Website to Azure
+name: Deploy to Azure Web App
 
 on:
-  push:  # Trigger this workflow on every push to the repository
+  push:
+    branches:
+      - main  # Trigger deployment on push to main branch
 
 jobs:
-  build_and_deploy_job:
-    runs-on: ubuntu-latest  # Specifies the OS for the job
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Step to pull the latest code from the repository
+        uses: actions/checkout@v2
 
-      - name: Build and Deploy Static Web App
-        uses: Azure/static-web-apps-deploy@v1
+      - name: Log in to Azure
+        uses: azure/login@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}  # Token from GitHub Secrets
-          app_location: "/"  # Location of your app source code
-          output_location: "/"  # Location of your built app (typically / for static apps)
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: practice-static-site  # Replace with your actual App Service name
+          package: '.'  # Path to the project folder ('.' means the root of the repository)
