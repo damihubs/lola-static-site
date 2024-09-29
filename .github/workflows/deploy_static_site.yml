@@ -19,7 +19,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v2  # Correct action for Azure Web App
         with:
-          app-name: practice-static-site  # Replace with your actual App Service name
-          package: '.'  # Path to the project folder ('.' means the root of the repository)
+          app-name: practice-static-site  # Your Azure Web App name
+          package: '.'  # Root of the repository to deploy
