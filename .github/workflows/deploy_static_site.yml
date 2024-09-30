@@ -22,4 +22,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: practice-static-site  # Replace this with your Azure Web App name
-          package: '.'  # Path to your code to deploy ('.' means the root of your repository)
+          package: '.'  # Ensure this path points to your HTML files
